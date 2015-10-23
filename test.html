@@ -20,49 +20,48 @@
     }
   </style>
   <script type="text/javascript">
-   var demo = { 
+   var demo = {
 
-    paper: null, 
+    paper: null,
 
-    init: function(){ 
-        //初始化Raphael画布 
-        this.paper = Raphael("bg", 51, 51); 
+    init: function(){
+        //初始化Raphael画布
+        this.paper = Raphael("bg", 51, 51);
         var c = this.paper.circle(25, 25, 23).attr({"stroke-width":4, "stroke":"#E2E7E1"});
-        
 
-        //把底图先画上去 
-        // this.paper.image("progressBg.png", 0, 0, 74, 74); 
+        //把底图先画上去
+        // this.paper.image("progressBg.png", 0, 0, 74, 74);
 
-        //进度比例，0到1，在本例中我们画65% 
-        //需要注意，下面的算法不支持画100%，要按99.99%来画 
-        var percent = 0.59, 
-        drawPercent = percent >= 1 ? 0.9999 : percent; 
+        //进度比例，0到1，在本例中我们画65%
+        //需要注意，下面的算法不支持画100%，要按99.99%来画
+        var percent = 0.59,
+        drawPercent = percent >= 1 ? 0.9999 : percent;
 
-        //由于只画一条弧，所以参数简单多了，只用计算弧的起点和终点就好了，与上一篇相比简化了许多 
-        var r = 23, PI = Math.PI, 
-        p1 = { 
-          x:25, 
-          y:2 
-        }, 
-        p2 = { 
-          x:p1.x - r * Math.sin(2 * PI * (1 - drawPercent)), 
-          y:p1.y + r - r * Math.cos(2 * PI * (1 - drawPercent)) 
-        }, 
-        path = [ 
-        'M', p1.x, ' ', p1.y, 
-        'A', r, ' ', r, ' 0 ', percent > 0.5 ? 1 : 0, ' 1 ', p2.x, ' ', p2.y 
-        ].join(''); 
+        //由于只画一条弧，所以参数简单多了，只用计算弧的起点和终点就好了，与上一篇相比简化了许多
+        var r = 23, PI = Math.PI,
+        p1 = {
+          x:25,
+          y:2
+        },
+        p2 = {
+          x:p1.x - r * Math.sin(2 * PI * (1 - drawPercent)),
+          y:p1.y + r - r * Math.cos(2 * PI * (1 - drawPercent))
+        },
+        path = [
+        'M', p1.x, ' ', p1.y,
+        'A', r, ' ', r, ' 0 ', percent > 0.5 ? 1 : 0, ' 1 ', p2.x, ' ', p2.y
+        ].join('');
 
-        this.paper.path(path) 
-            //线的粗线为6 
-            .attr({"stroke-width":4, "stroke":"#2DCC70"}); 
+        this.paper.path(path)
+            //线的粗线为6
+            .attr({"stroke-width":4, "stroke":"#2DCC70"});
 
-        //显示进度文字 
-        $("#txt").html(Math.round(percent * 100) + "<span id='percent'>%</span>"); 
+        //显示进度文字
+        $("#txt").html(Math.round(percent * 100) + "<span id='percent'>%</span>");
 
-      } 
+      }
 
-    }; 
+    };
     $(function(){
       demo.init();
     });
